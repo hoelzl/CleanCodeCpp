@@ -1,0 +1,3 @@
+[submodule "PrimeFactors/googletest"]
+	path = PrimeFactors/googletest
+	url = https://github.com/google/googletest.git
