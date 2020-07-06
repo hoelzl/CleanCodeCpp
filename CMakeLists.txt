@@ -7,3 +7,4 @@ project ("CleanCodeCpp")
 
 # Include sub-projects.
 add_subdirectory ("PrimeFactors")
+add_subdirectory ("Point")
