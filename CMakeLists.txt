@@ -6,5 +6,6 @@ cmake_minimum_required (VERSION 3.8)
 project ("CleanCodeCpp")
 
 # Include sub-projects.
+add_subdirectory ("CleanCode")
 add_subdirectory ("PrimeFactors")
 add_subdirectory ("Point")
