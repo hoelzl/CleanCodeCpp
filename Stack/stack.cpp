@@ -1,53 +1,101 @@
 #include "stack.h"
 #include <stdexcept>
 
-bool Stack::is_empty() const noexcept
-{
-    return elements.empty();
+bool Stack::is_empty() const noexcept { return elements.empty(); }
+
+void Stack::push(int element) { elements.push_back(element); }
+
+int Stack::pop() {
+  if (is_empty()) {
+    return pop_empty_stack();
+  }
+  return pop_nonempty_stack();
 }
 
-void Stack::push(int element)
-{
-    elements.push_back(element);
+std::size_t Stack::size() const noexcept { return elements.size(); }
+
+std::size_t Stack::count(int element) const noexcept {
+  return std::count(std::cbegin(elements), std::cend(elements), element);
 }
 
-int Stack::pop()
-{
-    if (is_empty()) {
-        if (default.has_value()) {
-            return default.value();
-        }
-        throw std::out_of_range("Cannot pop an empty stack.");
-    }
-    int result { elements.back() };
-    elements.pop_back();
-    return result;
+int Stack::pop_default(int the_default_value) noexcept {
+  if (is_empty()) {
+    return the_default_value;
+  }
+  return pop_nonempty_stack();
 }
 
-std::size_t Stack::size() const noexcept
-{
-    return elements.size();
+void Stack::set_default(int the_default_value) noexcept {
+  default_value = the_default_value;
 }
 
-std::size_t Stack::count(int element) const noexcept
-{
-    return std::count(std::cbegin(elements), std::cend(elements), element);
+void Stack::clear_default() noexcept { default_value.reset(); }
+
+int Stack::pop_empty_stack() {
+  if (default_value.has_value()) {
+    return default_value.value();
+  }
+  throw std::out_of_range("Cannot pop an empty stack.");
 }
 
-int Stack::pop_default(int default) noexcept
-{
-    if (is_empty()) {
-        return default;
-    }
-    return pop();
+int Stack::pop_nonempty_stack() noexcept {
+  int result{elements.back()};
+  elements.pop_back();
+  return result;
 }
 
-void Stack::set_default(int default) noexcept
-{
-    this->default = default;
+/// Implementation of StackV2
+
+bool StackV2::is_empty() const noexcept { return next_index == 0; }
+
+bool StackV2::is_full() const noexcept { return next_index < elements.size(); }
+
+void StackV2::push(int element) {
+  if (is_full()) {
+    elements[next_index] = element;
+    ++next_index;
+  } else {
+    throw std::invalid_argument("Cannot push on a full stack.");
+  }
 }
 
-void Stack::clear_default() noexcept
-{
-    default.reset();
+int StackV2::pop() {
+  if (is_empty()) {
+    return pop_empty_stack();
+  }
+  return pop_nonempty_stack();
+}
+
+std::size_t StackV2::size() const noexcept { return next_index; }
+
+std::size_t StackV2::count(int element) const noexcept {
+  // This implementation is subtly wrong!
+  // return std::count(std::cbegin(elements), std::cend(elements), element);
+  const auto &begin_it = std::cbegin(elements);
+  return std::count(begin_it, begin_it + next_index, element);
+}
+
+int StackV2::pop_default(int the_default_value) noexcept {
+  if (is_empty()) {
+    return the_default_value;
+  }
+  return pop_nonempty_stack();
+}
+
+void StackV2::set_default(int new_default_value) noexcept {
+  this->default_value = new_default_value;
+}
+
+void StackV2::clear_default() noexcept { default_value.reset(); }
+
+int StackV2::pop_empty_stack() {
+  if (default_value.has_value()) {
+    return default_value.value();
+  }
+  throw std::out_of_range("Cannot pop an empty stack.");
+}
+
+int StackV2::pop_nonempty_stack() noexcept {
+  --next_index;
+  return elements[next_index];
 }
