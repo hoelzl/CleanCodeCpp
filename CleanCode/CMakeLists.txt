@@ -5,7 +5,7 @@ project(CleanCode)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(POINT_SOURCES  "clean_code.h" "names.cpp")
+set(POINT_SOURCES  "clean_code.h" "names.cpp" "complex_function.cpp" "complex_function.h")
 set(POINT_MAIN "clean_code.cpp")
 
 # Add source to this project's executable.

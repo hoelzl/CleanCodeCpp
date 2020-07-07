@@ -20,5 +20,5 @@ add_executable (PrimeFactors ${PRIME_FACTOR_SOURCES} ${PRIME_FACTOR_MAIN})
 
 enable_testing()
 
-add_executable(UnitTest ${PRIME_FACTOR_SOURCES} ${PRIME_FACTOR_TEST})
-target_link_libraries(UnitTest gtest gtest_main)
+add_executable(PrimeFactorsTest ${PRIME_FACTOR_SOURCES} ${PRIME_FACTOR_TEST})
+target_link_libraries(PrimeFactorsTest gtest gtest_main)
