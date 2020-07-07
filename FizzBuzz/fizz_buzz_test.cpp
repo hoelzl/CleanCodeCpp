@@ -1,6 +1,4 @@
-#include <vector>
-
-#include "prime_factors.h"
+#include "fizz_buzz.h"
 #include "gmock/gmock.h"
 
 using namespace testing;
