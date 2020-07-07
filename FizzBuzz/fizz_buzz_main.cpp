@@ -2,4 +2,5 @@
 
 int main()
 {
+    fizz_buzz(20);
 }

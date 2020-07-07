@@ -82,4 +82,4 @@ TEST_P(compute_prime_factors_parametric_test, property_test_example)
 
 INSTANTIATE_TEST_SUITE_P(check_factor_properties,
     compute_prime_factors_parametric_test,
-    Range(2L, 5L));
+    Range(2L, 50L));
